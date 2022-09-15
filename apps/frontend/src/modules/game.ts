@@ -48,6 +48,7 @@ export const gameSlice = createSlice({
 })
 
 export const loadingPokemonSelector = (state: RootState) => state.game.currentPokemon
+export const isLoadingPokemon = (state: RootState) => state.game.loadingPokemon
 
 export const {
     throwPokeball,
