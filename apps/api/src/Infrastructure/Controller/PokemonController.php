@@ -9,7 +9,7 @@ class PokemonController
 {
     public function show(): Response
     {
-        $number = rand(1, 151);
+        $number = mt_rand(1, 151);
         $api = new PokeApi();
         $pokemon = json_decode($api->pokemon($number));
 

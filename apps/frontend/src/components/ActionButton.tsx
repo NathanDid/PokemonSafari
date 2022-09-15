@@ -7,6 +7,20 @@ type Props = {
     title?: string
 
 }
+
+const ActionButton = ({disabled, onClick, label, title}: Props) => {
+    return(
+        <Button
+            disabled={disabled}
+            onClick={onClick}
+            title={title}
+        >
+            {label}
+        </Button>
+    )
+}
+
+
 const Button = styled.button`
     color: ${props => props.disabled ? "red" : "limegreen"}   ;
     border: 2px solid limegreen;
@@ -22,17 +36,5 @@ const Button = styled.button`
         background-color: grey;
     }
 `;
-
-const ActionButton = ({disabled, onClick, label, title}: Props) => {
-    return(
-        <Button
-            disabled={disabled}
-            onClick={onClick}
-            title={title}
-        >
-            {label}
-        </Button>
-    )
-}
 
 export default ActionButton

@@ -7,4 +7,4 @@ pokemon:
 pokeball:
     path:       /pokeball
     controller: Infrastructure\Controller\PokeballController::success
-    methods:    GET
+    methods:    POST

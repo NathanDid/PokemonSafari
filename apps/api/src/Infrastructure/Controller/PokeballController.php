@@ -9,8 +9,8 @@ class PokeballController
 {
     public function success(Request $request): Response
     {
-        $score = $request->query->get('score');
-        $rate = $request->query->get('rate');
+        $score = (int) $request->request->get('score');
+        $rate = (int) $request->request->get('rate');
         $success = false;
 
         if ($rate < 50) {
@@ -18,20 +18,20 @@ class PokeballController
         } elseif ($rate < 100) {
             $success = $score > 100
                 ? true
-                : rand(1, 10) > 1
+                : mt_rand(1, 10) > 1
             ;
         } elseif ($rate < 200) {
             $success = $score > 200
-                ? rand(1, 10) > 2
-                : rand(1, 10) > 5
+                ? mt_rand(1, 10) > 2
+                : mt_rand(1, 10) > 5
             ;
         } else {
             $success = $score > 500
-                ? rand(1, 10) > 5
-                : rand(1, 100) > 95
+                ? mt_rand(1, 10) > 5
+                : mt_rand(1, 100) > 95
             ;
         }
 
-        return new Response($success);
+        return new Response(json_encode($success));
     }
 }

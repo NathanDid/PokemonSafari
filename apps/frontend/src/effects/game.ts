@@ -6,7 +6,7 @@ import {
   put,
   takeLeading,
 } from 'redux-saga/effects'
-import { get } from '../apiClient'
+import { get, post } from '../apiClient'
 
 function* fetchPokemon() {
   try {
@@ -20,6 +20,32 @@ function* fetchPokemon() {
   }
 }
 
+function* throwPokeball({ payload: { score, rate } }: gameSlice.ThrowPokeballPayloadType) {
+  try {
+    const formData = new FormData()
+    formData.append('score', score.toString())
+    formData.append('rate', rate.toString())
+
+    const success: boolean = yield call(post, `/pokeball`, formData)
+
+    if (success) {
+      try {
+        const pokemon: PokemonType = yield call(get, `/pokemon`)
+
+        yield all([
+          put(gameSlice.setCurrentPokemon(pokemon)),
+        ])
+      } catch (error) {
+      }
+    } else {
+      console.log('Catch failed')
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export default function* game() {
   yield takeLeading(gameSlice.fetchPokemon, fetchPokemon)
+  yield takeLeading(gameSlice.throwPokeball, throwPokeball)
 }

@@ -31,9 +31,9 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState,
     reducers: {
-        throwPokeball: (state) => ({
+        throwPokeball: (state, action) => ({
             ...state,
-            pokeballs: state.pokeballs - 1
+            pokeballs: state.pokeballs - 1,
         }),
         fetchPokemon: (state) => ({
             ...state,
@@ -47,8 +47,17 @@ export const gameSlice = createSlice({
     }
 })
 
+export type ThrowPokeballPayloadType = {
+    payload: {
+      score: number;
+      rate: number;
+    }
+  }
+
 export const loadingPokemonSelector = (state: RootState) => state.game.currentPokemon
 export const isLoadingPokemon = (state: RootState) => state.game.loadingPokemon
+export const scoreSelector = (state: RootState) => state.game.score
+export const rateSelector = (state: RootState) => state.game.currentPokemon ? state.game.currentPokemon.rate : 0
 
 export const {
     throwPokeball,
