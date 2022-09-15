@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "forceConsistentCasingInFileNames": false,
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "paths": {
+      "components": ["components"],
+      "graphql": ["graphql"],
+      "hooks": ["hooks"],
+      "styles": ["styles"],
+      "types": ["types"]
+    },
+    "resolveJsonModule": true,
+    "target": "esnext",
+    "typeRoots": ["node_modules/@types", "@types"]
+  },
+  "include": ["./src"]
+}

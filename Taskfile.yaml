@@ -1,0 +1,33 @@
+version: '3'
+
+silent: true
+output: 'prefixed'
+
+includes:
+  back: ./tasks/back.yaml
+  core: ./tasks/core.yaml
+  docker: ./tasks/docker.yaml
+  front: ./tasks/front.yaml
+
+tasks:
+  default:
+    cmds:
+      - task: start
+
+  start:
+    desc: Shortcut for docker:start
+    deps:
+      - front:install
+      - back:install
+    cmds:
+      - task: docker:start
+
+  stop:
+    desc: Shortcut for docker:stop
+    cmds:
+      - task: docker:stop
+
+  restart:
+    desc: Shortcut for docker:restart
+    cmds:
+      - task: docker:restart

@@ -1,0 +1,13 @@
+version: '3'
+
+silent: true
+output: 'prefixed'
+
+tasks:
+  certs:
+    desc: Generate SSL certificates
+    cmds:
+      - mkcert -cert-file certs/local-cert.pem -key-file certs/local-key.pem "app.localhost" "*.app.localhost"
+    status:
+      - test -f certs/local-cert.pem
+      - test -f certs/local-key.pem
