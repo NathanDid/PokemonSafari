@@ -1,7 +1,10 @@
-import TodoList from 'components/TodoList'
+import Action from './Action'
 
-const Main = () =>
-  <TodoList />
+const Main = () => {
 
+  return(
+    <Action />
+    )
+  }
 
 export default Main
