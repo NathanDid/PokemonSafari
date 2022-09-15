@@ -1,1 +1,4 @@
-
+# config/routes.yaml
+api:
+    resource: 'routes/api.yaml'
+    prefix: /api

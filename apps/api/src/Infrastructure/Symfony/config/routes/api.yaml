@@ -1,0 +1,10 @@
+# config/api.yaml
+pokemon:
+    path:       /pokemon
+    controller: Infrastructure\Controller\PokemonController::show
+    methods:    GET|HEAD
+
+pokeball:
+    path:       /pokeball
+    controller: Infrastructure\Controller\PokeballController::success
+    methods:    GET
