@@ -1,13 +1,18 @@
 const THROW_POKEBALL = 'poke::THROW_POKEBALL'
 
+export type Pokemon = {
+    name: string;
+}
 export type State = {
     score: number;
     pokeballs: number;
+    ownedPokemons: Pokemon[];
 }
 
 const initialState: State = {
     score: 0,
-    pokeballs: 20
+    pokeballs: 20,
+    ownedPokemons: []
 }
 
 export const throwPokeball = () => ({ type: THROW_POKEBALL })

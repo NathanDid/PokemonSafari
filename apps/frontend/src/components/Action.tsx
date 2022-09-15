@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import ActionButton from "./ActionButton"
 import { useSelector } from "react-redux"
 import { RootState } from "configureStore"
+import PokeballButton from "./PokeballButton"
 
 const Action = () => {
     const dispatch = useDispatch()
@@ -14,7 +15,7 @@ const Action = () => {
 
     return(
         <>
-            <ActionButton label="Pokeball" onClick={handleThrowPokeball} disabled={false} pokeballs={pokeballs}/>
+            <PokeballButton label="Pokeball" onClick={handleThrowPokeball} disabled={false} pokeballs={pokeballs}/>
             <ActionButton label="Caillou" disabled={true} />
             <ActionButton label="Appat" disabled={true} />
             <ActionButton label="Fuite" disabled={true} />
