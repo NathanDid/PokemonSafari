@@ -1,35 +1,58 @@
-const THROW_POKEBALL = 'poke::THROW_POKEBALL'
+import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "configureStore";
 
-export type Pokemon = {
+const THROW_POKEBALL = 'poke::THROW_POKEBALL'
+const ENCOUNTER = 'poke::ENCOUNTER'
+
+export type PokemonType = {
     name: string;
+    image: string;
+    score: number;
+    rate: number;
 }
-export type State = {
+
+export type GameStateType = {
     score: number;
     pokeballs: number;
-    ownedPokemons: Pokemon[];
+    currentPokemon?: PokemonType;
+    loadingPokemon: boolean,
+    ownedPokemons: PokemonType[]
 }
 
-const initialState: State = {
+const initialState: GameStateType = {
     score: 0,
     pokeballs: 20,
+    currentPokemon: null,
+    loadingPokemon: false,
     ownedPokemons: []
 }
 
-export const throwPokeball = () => ({ type: THROW_POKEBALL })
-
-type Action = ThrowPokeballAction
-
-type ThrowPokeballAction = {
-  type: typeof THROW_POKEBALL;
-}
-
-export const reducer = (state: State = initialState, action: Action) => {
-    if (action.type === THROW_POKEBALL) {
-        return {
+export const gameSlice = createSlice({
+    name: 'game',
+    initialState,
+    reducers: {
+        throwPokeball: (state) => ({
             ...state,
             pokeballs: state.pokeballs - 1
-        }
+        }),
+        fetchPokemon: (state) => ({
+            ...state,
+            loadingPokemon: true
+        }),
+        setCurrentPokemon: (state, action) => ({
+            ...state,
+            currentPokemon: action.payload,
+            loadingPokemon: false
+        })
     }
+})
 
-    return state
-}
+export const loadingPokemonSelector = (state: RootState) => state.game.currentPokemon
+
+export const {
+    throwPokeball,
+    fetchPokemon,
+    setCurrentPokemon
+} = gameSlice.actions
+
+export default gameSlice.reducer

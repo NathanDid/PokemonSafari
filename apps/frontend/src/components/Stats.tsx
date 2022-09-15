@@ -1,8 +1,8 @@
-import { Pokemon } from "modules/game"
+import { PokemonType } from "modules/game"
 
 type Props = {
     score: number,
-    ownedPokemons: Pokemon[],
+    ownedPokemons: PokemonType[],
 
 }
 
