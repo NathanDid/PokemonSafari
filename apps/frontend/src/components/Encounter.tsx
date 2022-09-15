@@ -2,28 +2,44 @@ import { PokemonType } from "../modules/game"
 import styled from 'styled-components';
 
 type Props = {
-    isLoadingPokemon: boolean
-    currentPokemon?: PokemonType
+    currentPokemon?: PokemonType,
+    isLoading: boolean
 }
 
 const Div = styled.div`
-    h1 {
-        text-transform: capitalize
+    .pokemon, .loader {
+        height: 400px;
+        overflow: hidden;
+    }
+
+    .pokemon img {
+        max-height: 300px
+    }
+
+    .pokemon h1 {
+        text-align: center;
+        text-transform: capitalize;
     }
 `;
 
 const Encounter = (props: Props) => {
-    if (props.isLoadingPokemon) {
+    if (props.isLoading) {
         return (
-            <Div></Div>
+            <Div>
+                <div className="loader">
+                    <img src="loader.gif" />
+                </div>
+            </Div>
         )
     }
 
     if (props.currentPokemon) {
         return (
             <Div>
-                <h1>{props.currentPokemon.name}</h1>
-                <img src={props.currentPokemon.image}/>
+                <div className="pokemon">
+                    <h1>{props.currentPokemon.name}</h1>
+                    <img src={props.currentPokemon.image} className="pkm"/>
+                </div>
             </Div>
         )
     }
