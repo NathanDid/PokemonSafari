@@ -7,17 +7,15 @@ type Props = {
     pokeballs?: number
 }
 
-const getLabel = (label: string, pokeballs?: number) => {
-    if (pokeballs) {
-        label += ` (${pokeballs})`
-    }
-
-    return label
-}
-
 const PokeballButton = ({ disabled, onClick, label, pokeballs }: Props) => {
+    const hasAvailablePokeball = pokeballs > 0;
     return(
-        <ActionButton label={getLabel(label, pokeballs)} disabled={disabled || pokeballs <= 0} onClick={onClick}/>
+        <ActionButton
+            label={label += ` (${pokeballs})`}
+            disabled={disabled || !hasAvailablePokeball}
+            onClick={onClick}
+            title={!hasAvailablePokeball ? 'Plus de pokeball disponible, veuillez en acheter de nouvelles au magasin' : ''}
+        />
     )
 }
 
