@@ -2,12 +2,12 @@ import { createStore } from 'redux'
 import { rootReducer } from './modules';
 
 import {
-  reducer as poke,
+  reducer as game,
   State as GameState
-} from './modules/poke'
+} from './modules/game'
 
 export type RootState = {
-  game: PokeState;
+  game: GameState;
 }
 
 export const configureStore =  () => {

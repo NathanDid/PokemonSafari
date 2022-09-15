@@ -9,15 +9,17 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-//const store = configureStore()
+const store = configureStore()
 
 export default function App() {
 
   return (
-    <StrictMode>
-      <ApolloProvider client={client}>
-        <Main />
-      </ApolloProvider>
-    </StrictMode>
+    <Provider store={store}>
+      <StrictMode>
+        <ApolloProvider client={client}>
+          <Main />
+        </ApolloProvider>
+      </StrictMode>
+    </Provider>
   )
 }
