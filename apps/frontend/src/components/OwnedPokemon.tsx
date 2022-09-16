@@ -9,7 +9,7 @@ type Props = {
 const OwnedPokemon = ({ pokemon }: Props) => {
     return(
         <>
-            <Img src={pokemon.image} title={pokemon.name}/>
+            <Img src={pokemon.sprite} title={pokemon.name}/>
         </>
     )
 }

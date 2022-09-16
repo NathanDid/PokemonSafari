@@ -17,7 +17,8 @@ class PokemonController
             'name'      => $pokemon->name,
             'image'     => $pokemon->sprites->other->home->front_default,
             'score'     => $pokemon->base_experience,
-            'rate'      => $pokemon->base_experience
+            'rate'      => $pokemon->base_experience,
+            'sprite'    => $pokemon->sprites->front_default
         ]));
     }
 }

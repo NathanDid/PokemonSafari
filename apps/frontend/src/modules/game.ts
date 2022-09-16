@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "configureStore";
 
-const THROW_POKEBALL = 'poke::THROW_POKEBALL'
-const ENCOUNTER = 'poke::ENCOUNTER'
+export const pokeballPrice = 100
 
 export type PokemonType = {
     name: string;
     image: string;
     score: number;
     rate: number;
+    sprite: string;
 }
 
 export type GameStateType = {
@@ -47,6 +47,15 @@ export const gameSlice = createSlice({
         addToInventory: (state) => ({
             ...state,
             ownedPokemons: [...state.ownedPokemons, state.currentPokemon],
+        }),
+        increaseScore: (state) => ({
+            ...state,
+            score: state.score + state.currentPokemon.score
+        }),
+        buyPokeball: (state) => ({
+            ...state,
+            pokeballs: state.pokeballs + 1,
+            score: state.score - pokeballPrice
         })
     }
 })
@@ -68,7 +77,9 @@ export const {
     throwPokeball,
     fetchPokemon,
     setCurrentPokemon,
-    addToInventory
+    addToInventory,
+    increaseScore,
+    buyPokeball
 } = gameSlice.actions
 
 export default gameSlice.reducer

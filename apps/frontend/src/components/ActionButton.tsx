@@ -5,7 +5,6 @@ type Props = {
     disabled: boolean,
     onClick?: () => void,
     title?: string
-
 }
 
 const ActionButton = ({disabled, onClick, label, title}: Props) => {
@@ -22,7 +21,7 @@ const ActionButton = ({disabled, onClick, label, title}: Props) => {
 
 
 const Button = styled.button`
-    color: ${props => props.disabled ? "red" : "limegreen"}   ;
+    color: ${props => props.disabled ? "red" : "limegreen"};
     border: 2px solid limegreen;
     font-size: 1em;
     margin: 1em;

@@ -34,6 +34,17 @@ function* throwPokeball({ payload: { score, rate } }: gameSlice.ThrowPokeballPay
         put(gameSlice.addToInventory()),
         put(gameSlice.setCurrentPokemon(pokemon))
       ])
+      try {
+        yield all([
+          put(gameSlice.increaseScore()),
+        ])
+
+        const pokemon: PokemonType = yield call(get, `/pokemon`)
+        yield all([
+          put(gameSlice.setCurrentPokemon(pokemon)),
+        ])
+      } catch (error) {
+      }
     } else {
       console.log('Catch failed')
     }
