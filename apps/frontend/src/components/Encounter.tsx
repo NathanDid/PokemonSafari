@@ -7,25 +7,47 @@ type Props = {
 }
 
 const Div = styled.div`
-    .pokemon, .loader {
+height: 420px;
+    .loader {
         height: 400px;
         overflow: hidden;
     }
 
-    .pokemon img {
+    img {
         max-height: 300px
     }
 
-    .pokemon h1 {
+    h1 {
         text-align: center;
         text-transform: capitalize;
+    }
+
+    &.pokemon {
+        animation-name: encounter;
+        animation-duration: 0.5s; 
+        animation-timing-function: ease-out;
+        animation-direction: normal;
+        animation-fill-mode: backwards;
+    }
+
+    @keyframes encounter {
+        from {
+            filter: blur(12px);
+            opacity: 0;
+            transform: translate(500px, 0px);
+        }
+        to {
+            filter: blur(0);
+            opacity: 1;
+            transform: translate(0px, 0px);
+        }
     }
 `;
 
 const Encounter = (props: Props) => {
     if (props.isLoading) {
         return (
-            <Div>
+            <Div className="pokemoff">
                 <div className="loader">
                     <img src="loader.gif" />
                 </div>
@@ -35,11 +57,9 @@ const Encounter = (props: Props) => {
 
     if (props.currentPokemon) {
         return (
-            <Div>
-                <div className="pokemon">
-                    <h1>{props.currentPokemon.name}</h1>
-                    <img src={props.currentPokemon.image} className="pkm"/>
-                </div>
+            <Div className="pokemon">
+                <h1>{props.currentPokemon.name}</h1>
+                <img src={props.currentPokemon.image}/>
             </Div>
         )
     }
