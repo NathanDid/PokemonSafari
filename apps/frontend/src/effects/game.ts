@@ -35,11 +35,8 @@ function* throwPokeball({ payload: { score, rate } }: gameSlice.ThrowPokeballPay
     const success: boolean = yield call(post, `/pokeball`, formData)
 
     if (success) {
-        const pokemon: PokemonType = yield call(get, `/pokemon`)
-
         yield all([
-          put(gameSlice.addToInventory()),
-          put(gameSlice.increaseScore()),
+          put(gameSlice.throwPokeballSuccess()),
         ])
 
         try {

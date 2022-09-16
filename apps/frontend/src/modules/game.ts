@@ -47,19 +47,18 @@ export const gameSlice = createSlice({
             currentPokemon: action.payload,
             loadingPokemon: false
         }),
-        addToInventory: (state) => ({
-            ...state,
-            ownedPokemons: [...state.ownedPokemons, state.currentPokemon],
-            isPokeballThrown: false
-        }),
-        increaseScore: (state) => ({
-            ...state,
-            score: state.score + state.currentPokemon.score
-        }),
         buyPokeball: (state) => ({
             ...state,
             pokeballs: state.pokeballs + 1,
             score: state.score - pokeballPrice
+        }),
+        throwPokeballSuccess: (state) => ({
+            ...state,
+            score: state.score + state.currentPokemon.score,
+            ownedPokemons: [...state.ownedPokemons, state.currentPokemon],
+            isPokeballThrown: false,
+            loadingPokemon: false,
+            currentPokemon: null
         }),
         throwPokeballFailed: (state) => ({
             ...state,
@@ -86,10 +85,9 @@ export const {
     throwPokeball,
     fetchPokemon,
     setCurrentPokemon,
-    addToInventory,
-    increaseScore,
     buyPokeball,
-    throwPokeballFailed
+    throwPokeballFailed,
+    throwPokeballSuccess
 } = gameSlice.actions
 
 export default gameSlice.reducer

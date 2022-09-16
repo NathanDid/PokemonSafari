@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { rateSelector, scoreSelector, throwPokeball } from "../modules/game";
+import { isPokeballThrownSelector, rateSelector, scoreSelector, throwPokeball } from "../modules/game";
 import ActionButton from "./ActionButton"
 
 type Props = {
@@ -14,6 +14,7 @@ const PokeballButton = ({ disabled, label, pokeballs }: Props) => {
     const hasAvailablePokeball = pokeballs > 0;
     const score = useSelector(scoreSelector)
     const rate = useSelector(rateSelector)
+    const isPokeballThrown = useSelector(isPokeballThrownSelector)
 
     const dispatch = useDispatch()
 
@@ -24,7 +25,7 @@ const PokeballButton = ({ disabled, label, pokeballs }: Props) => {
     return(
         <ActionButton
             label={label += ` (${pokeballs})`}
-            disabled={disabled || !hasAvailablePokeball}
+            disabled={disabled || !hasAvailablePokeball || isPokeballThrown}
             onClick={handleClick}
             title={!hasAvailablePokeball ? 'Plus de pokeball disponible, veuillez en acheter de nouvelles au magasin' : ''}
         />

@@ -56,9 +56,13 @@ const Encounter = (props: Props) => {
                 <img src={props.currentPokemon.image}/>
             </Div>
         )
+    }else {
+        return (
+            <Div className="pokemoff">
+                <h1></h1>
+            </Div>
+        )
     }
-
-    return (<p></p>)
 }
 
 export default Encounter
