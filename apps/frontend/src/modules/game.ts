@@ -21,7 +21,7 @@ export type GameStateType = {
 
 const initialState: GameStateType = {
     score: 0,
-    pokeballs: 20,
+    pokeballs: 2000,
     currentPokemon: null,
     loadingPokemon: false,
     ownedPokemons: []
@@ -43,6 +43,10 @@ export const gameSlice = createSlice({
             ...state,
             currentPokemon: action.payload,
             loadingPokemon: false
+        }),
+        addToInventory: (state) => ({
+            ...state,
+            ownedPokemons: [...state.ownedPokemons, state.currentPokemon],
         })
     }
 })
@@ -58,11 +62,13 @@ export const loadingPokemonSelector = (state: RootState) => state.game.currentPo
 export const isLoadingPokemon = (state: RootState) => state.game.loadingPokemon
 export const scoreSelector = (state: RootState) => state.game.score
 export const rateSelector = (state: RootState) => state.game.currentPokemon ? state.game.currentPokemon.rate : 0
+export const ownedPokemonsSelector = (state: RootState) => state.game.ownedPokemons
 
 export const {
     throwPokeball,
     fetchPokemon,
-    setCurrentPokemon
+    setCurrentPokemon,
+    addToInventory
 } = gameSlice.actions
 
 export default gameSlice.reducer
