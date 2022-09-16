@@ -1,4 +1,4 @@
-import { fetchPokemon, rateSelector, scoreSelector, throwPokeball, buyPokeball } from "../modules/game"
+import { fetchPokemon, rateSelector, scoreSelector, throwPokeball, buyPokeball, locationSelector } from "../modules/game"
 import { useDispatch } from "react-redux"
 import ActionButton from "./ActionButton"
 import { useSelector } from "react-redux"
@@ -14,13 +14,14 @@ const Action = () => {
     const pokeballs = useSelector((state: RootState) => state.game.pokeballs)
     const score = useSelector(scoreSelector)
     const rate = useSelector(rateSelector)
+    const location = useSelector(locationSelector)
 
     const handleNextPokemon = () => {
-        dispatch(fetchPokemon())
+        dispatch(fetchPokemon({location}))
     }
 
     const handleClick = () => {
-        dispatch(throwPokeball({score, rate}))
+        dispatch(throwPokeball({score, rate, location}))
     }
 
     const handleBuyPokeball = () => {
@@ -61,6 +62,7 @@ const ActionPanel = styled.div`
     .actions {
         display: flex;
         flex-wrap: wrap;
+        background: rgba(255, 255, 255, .6);
     }
 
     .actions button {

@@ -14,9 +14,7 @@ const Inventory = ({ ownedPokemons }: Props) => {
                     <OwnedPokemon pokemon={pokemon}/>
                 </div>
             )}
-
         </Div>
-
     )
 }
 
@@ -25,6 +23,7 @@ const Div = styled.div`
     height: 220px;
     text-align: left;
     padding: 0 16px;
+    background: rgba(255, 255, 255, .6);
 
     > div {
         display: inline-block;

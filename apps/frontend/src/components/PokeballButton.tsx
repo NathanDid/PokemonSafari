@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { isPokeballThrownSelector, rateSelector, scoreSelector, throwPokeball } from "../modules/game";
+import { isPokeballThrownSelector, locationSelector, rateSelector, scoreSelector, throwPokeball } from "../modules/game";
 import ActionButton from "./ActionButton"
 
 type Props = {
@@ -15,11 +15,12 @@ const PokeballButton = ({ disabled, label, pokeballs }: Props) => {
     const score = useSelector(scoreSelector)
     const rate = useSelector(rateSelector)
     const isPokeballThrown = useSelector(isPokeballThrownSelector)
+    const location = useSelector(locationSelector)
 
     const dispatch = useDispatch()
 
     const handleClick = () => {
-        dispatch(throwPokeball({score, rate}))
+        dispatch(throwPokeball({score, rate, location}))
     }
 
     return(

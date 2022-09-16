@@ -18,7 +18,9 @@ export type GameStateType = {
     loadingPokemon: boolean,
     ownedPokemons: PokemonType[],
     isPokeballThrown: boolean,
-    shakePokemon: boolean
+    shakePokemon: boolean;
+    location: string;
+    locationList: string[];
 }
 
 const initialState: GameStateType = {
@@ -28,7 +30,9 @@ const initialState: GameStateType = {
     loadingPokemon: false,
     ownedPokemons: [],
     isPokeballThrown: false,
-    shakePokemon: false
+    shakePokemon: false,
+    location: 'plains',
+    locationList: ['plains', 'city', 'mountains', 'beach', 'volcano']
 }
 
 export const gameSlice = createSlice({
@@ -41,7 +45,7 @@ export const gameSlice = createSlice({
             isPokeballThrown: true,
             shakePokemon: false
         }),
-        fetchPokemon: (state) => ({
+        fetchPokemon: (state, action) => ({
             ...state,
             loadingPokemon: true,
             shakePokemon: false
@@ -68,6 +72,10 @@ export const gameSlice = createSlice({
             ...state,
             isPokeballThrown: false,
             shakePokemon: true
+        }),
+        setLocation: (state, action) => ({
+            ...state,
+            location: action.payload,
         })
     }
 })
@@ -76,8 +84,15 @@ export type ThrowPokeballPayloadType = {
     payload: {
       score: number;
       rate: number;
+      location: string;
     }
-  }
+}
+
+export type FetchPokemonPayloadType = {
+    payload: {
+      location: string;
+    }
+}
 
 export const loadingPokemonSelector = (state: RootState) => state.game.currentPokemon
 export const isLoadingPokemon = (state: RootState) => state.game.loadingPokemon
@@ -86,6 +101,8 @@ export const rateSelector = (state: RootState) => state.game.currentPokemon ? st
 export const ownedPokemonsSelector = (state: RootState) => state.game.ownedPokemons
 export const isPokeballThrownSelector = (state: RootState) => state.game.isPokeballThrown
 export const shakePokemonSelector = (state: RootState) => state.game.shakePokemon
+export const locationSelector = (state: RootState) => state.game.location
+export const locationListSelector = (state: RootState) => state.game.locationList
 
 export const {
     throwPokeball,
@@ -93,7 +110,8 @@ export const {
     setCurrentPokemon,
     buyPokeball,
     throwPokeballFailed,
-    throwPokeballSuccess
+    throwPokeballSuccess,
+    setLocation
 } = gameSlice.actions
 
 export default gameSlice.reducer

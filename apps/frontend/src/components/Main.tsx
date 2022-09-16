@@ -1,9 +1,18 @@
 import Action from './Action'
 import Encounter from './Encounter'
+import LocationList from './LocationList'
 import { useSelector } from "react-redux"
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { fetchPokemon, loadingPokemonSelector,isLoadingPokemon, ownedPokemonsSelector, scoreSelector, shakePokemonSelector } from '../modules/game'
+import {
+  fetchPokemon,
+  loadingPokemonSelector,
+  isLoadingPokemon,
+  ownedPokemonsSelector,
+  scoreSelector,
+  shakePokemonSelector,
+  locationSelector
+} from '../modules/game'
 import styled from 'styled-components';
 import Inventory from './Inventory'
 import State from './State'
@@ -15,6 +24,41 @@ const Div = styled.div`
         margin: 0 auto;
         border: 3px solid black
     }
+
+    .beach {
+        background: url('beach.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .city {
+        background: url('city.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .volcano {
+        background: url('volcano.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+    }
+
+    .plains {
+        background: url('plains.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .content {
+        display: flex;
+    }
+
+    .content {
+        > div {
+            flex: 40%;
+        }
+    }
 `;
 
 const Main = () => {
@@ -24,15 +68,19 @@ const Main = () => {
   const ownedPokemons = useSelector(ownedPokemonsSelector)
   const score = useSelector(scoreSelector)
   const shakePokemon = useSelector(shakePokemonSelector)
+  const location = useSelector(locationSelector)
 
   useEffect(() => {
-    dispatch(fetchPokemon())
+    dispatch(fetchPokemon({location}))
   }, [])
 
-  return(
+  return (
     <Div>
-        <div className="game">
-            <Encounter currentPokemon={currentPokemon} isLoading={loadingPokemon} shakePokemon={shakePokemon}/>
+        <div className={location + ' game'}>
+            <div className='content'>
+                <Encounter currentPokemon={currentPokemon} isLoading={loadingPokemon} shakePokemon={shakePokemon}/>
+                <LocationList/>
+            </div>
             <Action />
             <Inventory ownedPokemons={ownedPokemons}/>
             <State score={score}/>

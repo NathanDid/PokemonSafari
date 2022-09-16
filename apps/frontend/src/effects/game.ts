@@ -12,9 +12,10 @@ function *sleep(time: any) {
   yield new Promise(resolve => setTimeout(resolve, time));
 }
 
-function* fetchPokemon() {
+function* fetchPokemon({ payload: { location } }: gameSlice.FetchPokemonPayloadType) {
   try {
-    const pokemon: PokemonType = yield call(get, `/pokemon`)
+    console.log(location)
+    const pokemon: PokemonType = yield call(get, `/pokemon?location=${location}`)
 
     yield all([
       put(gameSlice.setCurrentPokemon(pokemon)),
@@ -24,7 +25,7 @@ function* fetchPokemon() {
   }
 }
 
-function* throwPokeball({ payload: { score, rate } }: gameSlice.ThrowPokeballPayloadType) {
+function* throwPokeball({ payload: { score, rate, location } }: gameSlice.ThrowPokeballPayloadType) {
   try {
     yield sleep(1000)
 
@@ -40,7 +41,7 @@ function* throwPokeball({ payload: { score, rate } }: gameSlice.ThrowPokeballPay
         ])
 
         try {
-          const pokemon: PokemonType = yield call(get, `/pokemon`)
+          const pokemon: PokemonType = yield call(get, `/pokemon?location=${location}`)
           yield all([
             put(gameSlice.setCurrentPokemon(pokemon)),
           ])
