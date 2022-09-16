@@ -6,6 +6,7 @@ import { RootState } from "configureStore"
 import PokeballButton from "./PokeballButton"
 import NextButton from "./NextButton"
 import BuyButton from "./BuyButton"
+import Pokeball from "./Pokeball"
 
 const Action = () => {
     const dispatch = useDispatch()
@@ -28,6 +29,7 @@ const Action = () => {
     return(
         <>
             <p>{score}</p>
+            <Pokeball isThrown={false}></Pokeball>
             <PokeballButton
                 label="Pokeball"
                 onClick={handleClick}

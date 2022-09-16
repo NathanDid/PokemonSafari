@@ -16,7 +16,8 @@ export type GameStateType = {
     pokeballs: number;
     currentPokemon?: PokemonType;
     loadingPokemon: boolean,
-    ownedPokemons: PokemonType[]
+    ownedPokemons: PokemonType[],
+    isPokeballThrown: boolean
 }
 
 const initialState: GameStateType = {
@@ -24,7 +25,8 @@ const initialState: GameStateType = {
     pokeballs: 2000,
     currentPokemon: null,
     loadingPokemon: false,
-    ownedPokemons: []
+    ownedPokemons: [],
+    isPokeballThrown: false
 }
 
 export const gameSlice = createSlice({
@@ -34,6 +36,7 @@ export const gameSlice = createSlice({
         throwPokeball: (state, action) => ({
             ...state,
             pokeballs: state.pokeballs - 1,
+            isPokeballThrown: true
         }),
         fetchPokemon: (state) => ({
             ...state,
@@ -47,6 +50,7 @@ export const gameSlice = createSlice({
         addToInventory: (state) => ({
             ...state,
             ownedPokemons: [...state.ownedPokemons, state.currentPokemon],
+            isPokeballThrown: false
         }),
         increaseScore: (state) => ({
             ...state,
@@ -56,6 +60,10 @@ export const gameSlice = createSlice({
             ...state,
             pokeballs: state.pokeballs + 1,
             score: state.score - pokeballPrice
+        }),
+        throwPokeballFailed: (state) => ({
+            ...state,
+            isPokeballThrown: false
         })
     }
 })
@@ -72,6 +80,7 @@ export const isLoadingPokemon = (state: RootState) => state.game.loadingPokemon
 export const scoreSelector = (state: RootState) => state.game.score
 export const rateSelector = (state: RootState) => state.game.currentPokemon ? state.game.currentPokemon.rate : 0
 export const ownedPokemonsSelector = (state: RootState) => state.game.ownedPokemons
+export const isPokeballThrownSelector = (state: RootState) => state.game.isPokeballThrown
 
 export const {
     throwPokeball,
@@ -79,7 +88,8 @@ export const {
     setCurrentPokemon,
     addToInventory,
     increaseScore,
-    buyPokeball
+    buyPokeball,
+    throwPokeballFailed
 } = gameSlice.actions
 
 export default gameSlice.reducer

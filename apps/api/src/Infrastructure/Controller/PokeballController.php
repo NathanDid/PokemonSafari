@@ -9,6 +9,7 @@ class PokeballController
 {
     public function success(Request $request): Response
     {
+        //sleep(1);
         $score = (int) $request->request->get('score');
         $rate = (int) $request->request->get('rate');
         $success = false;

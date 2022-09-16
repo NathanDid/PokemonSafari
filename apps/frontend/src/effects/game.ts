@@ -8,6 +8,10 @@ import {
 } from 'redux-saga/effects'
 import { get, post } from '../apiClient'
 
+function *sleep(time: any) {
+  yield new Promise(resolve => setTimeout(resolve, time));
+}
+
 function* fetchPokemon() {
   try {
     const pokemon: PokemonType = yield call(get, `/pokemon`)
@@ -22,6 +26,8 @@ function* fetchPokemon() {
 
 function* throwPokeball({ payload: { score, rate } }: gameSlice.ThrowPokeballPayloadType) {
   try {
+    yield sleep(1000)
+
     const formData = new FormData()
     formData.append('score', score.toString())
     formData.append('rate', rate.toString())
@@ -30,22 +36,23 @@ function* throwPokeball({ payload: { score, rate } }: gameSlice.ThrowPokeballPay
 
     if (success) {
         const pokemon: PokemonType = yield call(get, `/pokemon`)
-      yield all([
-        put(gameSlice.addToInventory()),
-        put(gameSlice.setCurrentPokemon(pokemon))
-      ])
-      try {
+
         yield all([
+          put(gameSlice.addToInventory()),
           put(gameSlice.increaseScore()),
         ])
 
-        const pokemon: PokemonType = yield call(get, `/pokemon`)
-        yield all([
-          put(gameSlice.setCurrentPokemon(pokemon)),
-        ])
-      } catch (error) {
-      }
+        try {
+          const pokemon: PokemonType = yield call(get, `/pokemon`)
+          yield all([
+            put(gameSlice.setCurrentPokemon(pokemon)),
+          ])
+        } catch (error) {
+        }
     } else {
+      yield all([
+        put(gameSlice.throwPokeballFailed()),
+      ])
       console.log('Catch failed')
     }
   } catch (error) {
