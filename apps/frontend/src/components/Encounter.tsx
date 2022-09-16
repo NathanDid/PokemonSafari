@@ -11,7 +11,8 @@ const Div = styled.div`
     height: 300px;
 
     img {
-        max-height: 200px
+        max-height: 200px;
+        filter:drop-shadow(0px 0px 10px white);
     }
 
     h1 {

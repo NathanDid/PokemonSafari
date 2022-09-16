@@ -21,6 +21,7 @@ export type GameStateType = {
     shakePokemon: boolean;
     location: string;
     locationList: string[];
+    audioOn: boolean;
 }
 
 const initialState: GameStateType = {
@@ -32,7 +33,8 @@ const initialState: GameStateType = {
     isPokeballThrown: false,
     shakePokemon: false,
     location: 'plains',
-    locationList: ['plains', 'city', 'mountains', 'beach', 'volcano']
+    locationList: ['plains', 'city', 'mountains', 'beach', 'volcano'],
+    audioOn: true
 }
 
 export const gameSlice = createSlice({
@@ -76,6 +78,10 @@ export const gameSlice = createSlice({
         setLocation: (state, action) => ({
             ...state,
             location: action.payload,
+        }),
+        toggleSound: (state) => ({
+            ...state,
+            audioOn: !state.audioOn,
         })
     }
 })
@@ -104,6 +110,7 @@ export const shakePokemonSelector = (state: RootState) => state.game.shakePokemo
 export const locationSelector = (state: RootState) => state.game.location
 export const locationListSelector = (state: RootState) => state.game.locationList
 export const currentPokemonSelector = (state: RootState) => state.game.currentPokemon
+export const audioOnSelector = (state: RootState) => state.game.audioOn
 
 export const {
     throwPokeball,
@@ -112,7 +119,8 @@ export const {
     buyPokeball,
     throwPokeballFailed,
     throwPokeballSuccess,
-    setLocation
+    setLocation,
+    toggleSound
 } = gameSlice.actions
 
 export default gameSlice.reducer

@@ -16,6 +16,7 @@ import {
 import styled from 'styled-components';
 import Inventory from './Inventory'
 import State from './State'
+import Audio from './Audio'
 
 const Div = styled.div`
     .game {
@@ -94,6 +95,7 @@ const Main = () => {
             <Action />
             <Inventory ownedPokemons={ownedPokemons}/>
             <State score={score}/>
+            <Audio/>
         </div>
     </Div>
   )
