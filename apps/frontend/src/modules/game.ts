@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "configureStore";
 
-export const pokeballPrice = 100
+export const pokeballPrice = 500
 
 export type PokemonType = {
     name: string;
