@@ -22,7 +22,7 @@ export type GameStateType = {
 
 const initialState: GameStateType = {
     score: 0,
-    pokeballs: 2000,
+    pokeballs: 20,
     currentPokemon: null,
     loadingPokemon: false,
     ownedPokemons: [],

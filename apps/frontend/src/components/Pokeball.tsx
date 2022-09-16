@@ -42,7 +42,7 @@ const Div = styled.div`
                 height: 100px;
             }
             to {
-                top: -230px;
+                top: -180px;
                 width: 40px;
                 height: 40px;
             }

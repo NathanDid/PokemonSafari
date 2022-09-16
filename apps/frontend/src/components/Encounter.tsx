@@ -7,9 +7,10 @@ type Props = {
 }
 
 const Div = styled.div`
-height: 420px;
+    height: 300px;
+
     img {
-        max-height: 300px
+        max-height: 200px
     }
 
     h1 {
@@ -43,6 +44,7 @@ const Encounter = (props: Props) => {
     if (props.isLoading) {
         return (
             <Div className="pokemoff">
+                <h1></h1>
             </Div>
         )
     }

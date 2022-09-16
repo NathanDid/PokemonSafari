@@ -21,12 +21,12 @@ const ActionButton = ({disabled, onClick, label, title}: Props) => {
 
 
 const Button = styled.button`
-    color: ${props => props.disabled ? "red" : "limegreen"};
-    border: 2px solid limegreen;
+    border: 2px solid;
     font-size: 1em;
     margin: 1em;
     padding: 0.25em 1em;
     border-radius: 3px;
+    height: 40px;
     &:hover {
         opacity: 0.9;
     }

@@ -9,7 +9,7 @@ type Props = {
 const Inventory = ({ ownedPokemons }: Props) => {
     return(
         <Div>
-            {ownedPokemons.map((pokemon, key) => 
+            {ownedPokemons.map((pokemon, key) =>
                 <div key={key}>
                     <OwnedPokemon pokemon={pokemon}/>
                 </div>
@@ -21,9 +21,14 @@ const Inventory = ({ ownedPokemons }: Props) => {
 }
 
 const Div = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-`; 
+    overflow-y: scroll;
+    height: 220px;
+    text-align: left;
+    padding: 0 16px;
+
+    > div {
+        display: inline-block;
+    }
+`;
 
 export default Inventory

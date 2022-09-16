@@ -16,11 +16,12 @@ const OwnedPokemon = ({ pokemon }: Props) => {
 
 const Img = styled.img`
     width: 50px;
-    border: solid 1px grey;
+    border: solid 1px;
+    border-radius: 25px;
     &:hover {
-        border: solid 2px orange;
+        border: solid 1px orange;
     }
-    display: block;
+    display: inline-block;
     margin: 0.5em;
 `;
 export default OwnedPokemon
