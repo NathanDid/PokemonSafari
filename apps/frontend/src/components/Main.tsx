@@ -50,6 +50,12 @@ const Div = styled.div`
         background-size: cover;
     }
 
+    .mountains {
+        background: url('mountains.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
     .content {
         display: flex;
     }
