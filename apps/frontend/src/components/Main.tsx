@@ -3,7 +3,7 @@ import Encounter from './Encounter'
 import { useSelector } from "react-redux"
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { fetchPokemon, loadingPokemonSelector,isLoadingPokemon, ownedPokemonsSelector, scoreSelector } from '../modules/game'
+import { fetchPokemon, loadingPokemonSelector,isLoadingPokemon, ownedPokemonsSelector, scoreSelector, shakePokemonSelector } from '../modules/game'
 import styled from 'styled-components';
 import Inventory from './Inventory'
 import State from './State'
@@ -23,6 +23,7 @@ const Main = () => {
   const loadingPokemon = useSelector(isLoadingPokemon)
   const ownedPokemons = useSelector(ownedPokemonsSelector)
   const score = useSelector(scoreSelector)
+  const shakePokemon = useSelector(shakePokemonSelector)
 
   useEffect(() => {
     dispatch(fetchPokemon())
@@ -31,7 +32,7 @@ const Main = () => {
   return(
     <Div>
         <div className="game">
-            <Encounter currentPokemon={currentPokemon} isLoading={loadingPokemon}/>
+            <Encounter currentPokemon={currentPokemon} isLoading={loadingPokemon} shakePokemon={shakePokemon}/>
             <Action />
             <Inventory ownedPokemons={ownedPokemons}/>
             <State score={score}/>

@@ -11,7 +11,7 @@ const Pokeball = (props: Props) => {
 
     return (
         <Div>
-            <div className={isPokeballThrown && 'thrown'}/>
+            <div className={isPokeballThrown ? 'thrown' : undefined}/>
         </Div>
     )
 }

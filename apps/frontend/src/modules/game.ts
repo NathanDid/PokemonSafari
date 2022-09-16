@@ -17,7 +17,8 @@ export type GameStateType = {
     currentPokemon?: PokemonType;
     loadingPokemon: boolean,
     ownedPokemons: PokemonType[],
-    isPokeballThrown: boolean
+    isPokeballThrown: boolean,
+    shakePokemon: boolean
 }
 
 const initialState: GameStateType = {
@@ -26,7 +27,8 @@ const initialState: GameStateType = {
     currentPokemon: null,
     loadingPokemon: false,
     ownedPokemons: [],
-    isPokeballThrown: false
+    isPokeballThrown: false,
+    shakePokemon: false
 }
 
 export const gameSlice = createSlice({
@@ -36,7 +38,8 @@ export const gameSlice = createSlice({
         throwPokeball: (state, action) => ({
             ...state,
             pokeballs: state.pokeballs - 1,
-            isPokeballThrown: true
+            isPokeballThrown: true,
+            shakePokemon: false
         }),
         fetchPokemon: (state) => ({
             ...state,
@@ -58,11 +61,12 @@ export const gameSlice = createSlice({
             ownedPokemons: [...state.ownedPokemons, state.currentPokemon],
             isPokeballThrown: false,
             loadingPokemon: false,
-            currentPokemon: null
+            currentPokemon: null,
         }),
         throwPokeballFailed: (state) => ({
             ...state,
-            isPokeballThrown: false
+            isPokeballThrown: false,
+            shakePokemon: true
         })
     }
 })
@@ -80,6 +84,7 @@ export const scoreSelector = (state: RootState) => state.game.score
 export const rateSelector = (state: RootState) => state.game.currentPokemon ? state.game.currentPokemon.rate : 0
 export const ownedPokemonsSelector = (state: RootState) => state.game.ownedPokemons
 export const isPokeballThrownSelector = (state: RootState) => state.game.isPokeballThrown
+export const shakePokemonSelector = (state: RootState) => state.game.shakePokemon
 
 export const {
     throwPokeball,

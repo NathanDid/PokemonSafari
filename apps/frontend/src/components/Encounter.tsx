@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 type Props = {
     currentPokemon?: PokemonType,
-    isLoading: boolean
+    isLoading: boolean,
+    shakePokemon: boolean
 }
 
 const Div = styled.div`
@@ -26,6 +27,10 @@ const Div = styled.div`
         animation-fill-mode: backwards;
     }
 
+    .shake {
+        animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
     @keyframes encounter {
         from {
             filter: blur(12px);
@@ -38,6 +43,24 @@ const Div = styled.div`
             transform: translate(0px, 0px);
         }
     }
+
+    @keyframes shake {
+        10%, 90% {
+          transform: translate3d(-5px, 0, 0);
+        }
+
+        20%, 80% {
+          transform: translate3d(10px, 0, 0);
+        }
+
+        30%, 50%, 70% {
+          transform: translate3d(-20px, 0, 0);
+        }
+
+        40%, 60% {
+          transform: translate3d(20px, 0, 0);
+        }
+      }
 `;
 
 const Encounter = (props: Props) => {
@@ -51,9 +74,9 @@ const Encounter = (props: Props) => {
 
     if (props.currentPokemon) {
         return (
-            <Div className="pokemon">
+            <Div className='pokemon'>
                 <h1>{props.currentPokemon.name}</h1>
-                <img src={props.currentPokemon.image}/>
+                <img src={props.currentPokemon.image} className={props.shakePokemon ? 'shake' : undefined}/>
             </Div>
         )
     }else {
