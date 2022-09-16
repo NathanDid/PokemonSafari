@@ -43,7 +43,8 @@ export const gameSlice = createSlice({
         }),
         fetchPokemon: (state) => ({
             ...state,
-            loadingPokemon: true
+            loadingPokemon: true,
+            shakePokemon: false
         }),
         setCurrentPokemon: (state, action) => ({
             ...state,
