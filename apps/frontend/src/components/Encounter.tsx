@@ -8,11 +8,6 @@ type Props = {
 
 const Div = styled.div`
 height: 420px;
-    .loader {
-        height: 400px;
-        overflow: hidden;
-    }
-
     img {
         max-height: 300px
     }
@@ -24,7 +19,7 @@ height: 420px;
 
     &.pokemon {
         animation-name: encounter;
-        animation-duration: 0.5s; 
+        animation-duration: 0.5s;
         animation-timing-function: ease-out;
         animation-direction: normal;
         animation-fill-mode: backwards;
@@ -48,9 +43,6 @@ const Encounter = (props: Props) => {
     if (props.isLoading) {
         return (
             <Div className="pokemoff">
-                <div className="loader">
-                    <img src="loader.gif" />
-                </div>
             </Div>
         )
     }
