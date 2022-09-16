@@ -103,6 +103,7 @@ export const isPokeballThrownSelector = (state: RootState) => state.game.isPokeb
 export const shakePokemonSelector = (state: RootState) => state.game.shakePokemon
 export const locationSelector = (state: RootState) => state.game.location
 export const locationListSelector = (state: RootState) => state.game.locationList
+export const currentPokemonSelector = (state: RootState) => state.game.currentPokemon
 
 export const {
     throwPokeball,

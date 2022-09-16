@@ -14,7 +14,6 @@ function *sleep(time: any) {
 
 function* fetchPokemon({ payload: { location } }: gameSlice.FetchPokemonPayloadType) {
   try {
-    console.log(location)
     const pokemon: PokemonType = yield call(get, `/pokemon?location=${location}`)
 
     yield all([
