@@ -51,6 +51,8 @@ class PokemonController
                     ]));
                 }
             }
+
+            usleep(100);
         }
     }
 
