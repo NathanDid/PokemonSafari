@@ -33,7 +33,8 @@ const LocationList = () => {
 }
 
 const Ul = styled.ul`
-    float: left;
+    position: absolute;
+    right: 30%;
     list-style: none;
     text-align: left;
     li {
