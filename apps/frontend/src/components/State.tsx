@@ -7,7 +7,7 @@ type Props = {
 const State = (props: Props) => {
     return (
         <Div>
-            <b>Score : {props.score}</b>
+            <b className="score">Score : {props.score}</b>
         </Div>
     )
 }

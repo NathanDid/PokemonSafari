@@ -44,6 +44,10 @@ const Div = styled.div`
         background-position: bottom;
     }
 
+    .city h1, .volcano h1, .volcano ul li, .city ul li, .city .score, .volcano .score {
+        color: white;
+    }
+
     .plains {
         background: url('plains.jpg');
         background-repeat: no-repeat;

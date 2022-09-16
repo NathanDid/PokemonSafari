@@ -79,7 +79,7 @@ const Encounter = (props: Props) => {
                 <img src={props.currentPokemon.image} className={props.shakePokemon ? 'shake' : undefined}/>
             </Div>
         )
-    }else {
+    } else {
         return (
             <Div className="pokemoff">
                 <h1></h1>

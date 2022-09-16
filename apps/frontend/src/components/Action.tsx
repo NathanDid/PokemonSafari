@@ -63,6 +63,7 @@ const ActionPanel = styled.div`
         display: flex;
         flex-wrap: wrap;
         background: rgba(255, 255, 255, .6);
+        margin: 0 0 40px;
     }
 
     .actions button {
