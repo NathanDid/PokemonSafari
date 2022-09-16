@@ -34,17 +34,28 @@ const Div = styled.div`
         animation-duration: 1s;
         animation-name: throwPokeball;
         animation-timing-function: ease-out;
+        transform: rotate(1800deg);
 
         @keyframes throwPokeball {
-            from {
+            0% {
                 top: 0px;
                 width: 100px;
                 height: 100px;
+                left: 0px;
+                transform: rotate(0);
             }
-            to {
+            30% {
+                top: -75px;
+                left: -10px;
+                width: 65px;
+                height: 65px;
+            }
+            100% {
                 top: -180px;
                 width: 40px;
                 height: 40px;
+                left: -40px;
+                transform: rotate(-720deg);
             }
         }
     }
