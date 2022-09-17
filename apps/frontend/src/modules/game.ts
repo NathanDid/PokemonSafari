@@ -34,7 +34,7 @@ const initialState: GameStateType = {
     shakePokemon: false,
     location: 'plains',
     locationList: ['plains', 'city', 'mountains', 'beach', 'volcano'],
-    audioOn: true
+    audioOn: false
 }
 
 export const gameSlice = createSlice({
