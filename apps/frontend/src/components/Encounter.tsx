@@ -1,10 +1,9 @@
-import { PokemonType } from "../modules/game"
+import { isLoadingPokemon, loadingPokemonSelector, shakePokemonSelector } from "../modules/game"
 import styled from 'styled-components';
+import { useSelector } from "react-redux";
 
 type Props = {
-    currentPokemon?: PokemonType,
     isLoading: boolean,
-    shakePokemon: boolean
 }
 
 const Div = styled.div`
@@ -64,29 +63,24 @@ const Div = styled.div`
       }
 `;
 
-const Encounter = (props: Props) => {
-    if (props.isLoading) {
+const Encounter = () => {
+    const currentPokemon = useSelector(loadingPokemonSelector)
+    const shakePokemon = useSelector(shakePokemonSelector)
+
+    if (currentPokemon) {
         return (
-            <Div className="pokemoff">
-                <h1></h1>
+            <Div className='pokemon'>
+                <h1>{currentPokemon.name}</h1>
+                <img src={currentPokemon.image} className={shakePokemon ? 'shake' : undefined}/>
             </Div>
         )
     }
 
-    if (props.currentPokemon) {
-        return (
-            <Div className='pokemon'>
-                <h1>{props.currentPokemon.name}</h1>
-                <img src={props.currentPokemon.image} className={props.shakePokemon ? 'shake' : undefined}/>
-            </Div>
-        )
-    } else {
-        return (
-            <Div className="pokemoff">
-                <h1></h1>
-            </Div>
-        )
-    }
+    return (
+        <Div className="pokemoff">
+            <h1></h1>
+        </Div>
+    )
 }
 
 export default Encounter

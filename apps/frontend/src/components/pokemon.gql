@@ -1,0 +1,11 @@
+query Pokemon($location: String!) {
+  pokemon(location: $location) {
+    id
+    name
+    image
+    sprite
+    score
+    rate
+    timestamp
+  }
+}

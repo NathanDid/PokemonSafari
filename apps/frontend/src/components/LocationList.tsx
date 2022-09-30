@@ -1,27 +1,30 @@
-import { fetchPokemon, locationListSelector, locationSelector, setLocation } from '../modules/game';
+import { locationListSelector, locationSelector, setCurrentPokemon, setLocation } from '../modules/game';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
+type Props = {
+    refetchPokemon: () => unknown
+}
 
-const LocationList = () => {
+const LocationList = ({refetchPokemon}: Props) => {
     const locationList = useSelector(locationListSelector)
     const currentLocation = useSelector(locationSelector)
     const dispatch = useDispatch()
 
     const handleClick = (location: string) => {
         dispatch(setLocation(location))
-        dispatch(fetchPokemon({location}))
+        refetchPokemon()
     }
 
     return (
         <Ul>
-            {locationList.map(function(location, index) {
+            {locationList.map(function (location, index) {
                 return <li
-                        key={index}
-                        className={currentLocation === location ? ('selected ' + location) : location}
-                        onClick={() => handleClick(location)}
-                    ><span>{location}</span></li>
+                    key={index}
+                    className={currentLocation === location ? ('selected ' + location) : location}
+                    onClick={() => handleClick(location)}
+                ><span>{location}</span></li>
             })}
         </Ul>
     )

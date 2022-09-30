@@ -2,11 +2,7 @@ import { isPokeballThrownSelector } from "../modules/game";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-type Props = {
-    isThrown: boolean
-}
-
-const Pokeball = (props: Props) => {
+const Pokeball = () => {
     const isPokeballThrown = useSelector(isPokeballThrownSelector)
 
     return (

@@ -1,4 +1,4 @@
-import { fetchPokemon, rateSelector, scoreSelector, throwPokeball, buyPokeball, locationSelector } from "../modules/game"
+import { buyPokeball, setCurrentPokemon } from "../modules/game"
 import { useDispatch } from "react-redux"
 import ActionButton from "./ActionButton"
 import { useSelector } from "react-redux"
@@ -9,19 +9,17 @@ import BuyButton from "./BuyButton"
 import Pokeball from "./Pokeball"
 import styled from "styled-components"
 
-const Action = () => {
+type Props = {
+    refetchPokemon: () => unknown
+}
+
+const Action = ({refetchPokemon}: Props) => {
     const dispatch = useDispatch()
     const pokeballs = useSelector((state: RootState) => state.game.pokeballs)
-    const score = useSelector(scoreSelector)
-    const rate = useSelector(rateSelector)
-    const location = useSelector(locationSelector)
 
     const handleNextPokemon = () => {
-        dispatch(fetchPokemon({location}))
-    }
-
-    const handleClick = () => {
-        dispatch(throwPokeball({score, rate, location}))
+        dispatch(setCurrentPokemon(null))
+        refetchPokemon()
     }
 
     const handleBuyPokeball = () => {
@@ -30,13 +28,14 @@ const Action = () => {
 
     return(
         <ActionPanel>
-            <Pokeball isThrown={false}></Pokeball>
+            <Pokeball></Pokeball>
 
             <div className="actions">
                 <PokeballButton
                     label="Pokeball"
-                    onClick={handleClick}
-                    disabled={false} pokeballs={pokeballs}
+                    disabled={false}
+                    pokeballs={pokeballs}
+                    refetchPokemon={refetchPokemon}
                 />
                 <ActionButton
                     label="Caillou"
