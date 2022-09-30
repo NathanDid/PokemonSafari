@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { currentPokemonSelector, isPokeballThrownSelector, scoreSelector, throwPokeball, throwPokeballFailed, throwPokeballSuccess } from "../modules/game";
 import ActionButton from "./ActionButton"
-import { usePokeballLazyQuery, usePokeballQuery } from "./pokeball.hooks";
+import { usePokeballLazyQuery } from "./pokeball.hooks";
 
 type Props = {
     label: string,
