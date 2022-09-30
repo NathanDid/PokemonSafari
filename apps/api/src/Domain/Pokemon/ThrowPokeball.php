@@ -16,11 +16,10 @@ class ThrowPokeball
     public function isSuccess(
         int $pokemonId,
         int $playerScore
-    ): bool
-    {
-        $pokemon        = $this->pokemons->findOneById($pokemonId);
-        $playerLevel    = Level::getPlayerLevelFromScore($playerScore);
-        $pokemonLevel   = Level::getPokemonLevelFromScore($pokemon);
+    ): bool {
+        $pokemon      = $this->pokemons->findOneById($pokemonId);
+        $playerLevel  = Level::getPlayerLevelFromScore($playerScore);
+        $pokemonLevel = Level::getPokemonLevelFromScore($pokemon);
         switch ($pokemonLevel) {
             case 0:
                 return $this->nearlyImpossibleToFailed();
@@ -31,6 +30,7 @@ class ThrowPokeball
                     default:
                         return $this->nearlyImpossibleToFailed();
                 }
+                // no break
             case 2:
                 switch ($playerLevel) {
                     case 1:
@@ -40,6 +40,7 @@ class ThrowPokeball
                     default:
                         return $this->nearlyImpossibleToFailed();
                 }
+                // no break
             case 3:
                 switch ($playerLevel) {
                     case 1:
@@ -51,6 +52,7 @@ class ThrowPokeball
                     default:
                         return $this->nearlyImpossibleToFailed();
                 }
+                // no break
             case 4:
                 switch ($playerLevel) {
                     case 1:
@@ -64,6 +66,7 @@ class ThrowPokeball
                     default:
                         return $this->nearlyImpossibleToFailed();
                 }
+                // no break
             case 5:
                 switch ($playerLevel) {
                     case 1:
@@ -77,6 +80,7 @@ class ThrowPokeball
                     case 5:
                         return $this->veryEasyToFailed();
                 }
+                // no break
             case 6:
                 switch ($playerLevel) {
                     case 1:
@@ -90,6 +94,7 @@ class ThrowPokeball
                     case 5:
                         return $this->easyToFailed();
                 }
+                // no break
             case 7:
                 switch ($playerLevel) {
                     case 1:
@@ -103,6 +108,7 @@ class ThrowPokeball
                     case 5:
                         return $this->veryEasyToFailed();
                 }
+                // no break
             case 8:
                 switch ($playerLevel) {
                     case 1:
@@ -116,6 +122,7 @@ class ThrowPokeball
                     case 5:
                         return $this->veryEasyToFailed();
                 }
+                // no break
             case 9:
                 switch ($playerLevel) {
                     case 1:
@@ -130,7 +137,6 @@ class ThrowPokeball
                         return $this->veryEasyToFailed();
                 }
         }
-
     }
 
     private function nearlyImpossibleToFailed(): bool

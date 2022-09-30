@@ -3,10 +3,9 @@
 namespace Infrastructure\Controller;
 
 use Domain\Pokemon\Encounter;
-use Symfony\Component\HttpFoundation\Response;
-use PokePHP\PokeApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PokemonController extends AbstractController
 {
@@ -22,11 +21,11 @@ class PokemonController extends AbstractController
         $pokemon = $this->encounter->getPokemon('volcano');
 
         return new Response(json_encode([
-            'name'      => $pokemon->getName(),
-            'image'     => $pokemon->getMainImage(),
-            'score'     => $pokemon->getScore(),
-            'rate'      => $pokemon->getBaseExperience(),
-            'sprite'    => $pokemon->getSprite()
+            'name' => $pokemon->getName(),
+            'image' => $pokemon->getMainImage(),
+            'score' => $pokemon->getScore(),
+            'rate' => $pokemon->getBaseExperience(),
+            'sprite' => $pokemon->getSprite(),
         ]));
     }
 }

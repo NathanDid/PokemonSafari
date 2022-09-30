@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Application\GraphQL\Types;
 
-use DateTime;
-use DateTimeImmutable;
 use Domain\Model;
 use Overblog\GraphQLBundle\Annotation\Field;
 use Overblog\GraphQLBundle\Annotation\Type;

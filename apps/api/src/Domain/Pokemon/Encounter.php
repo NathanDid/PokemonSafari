@@ -3,20 +3,19 @@
 namespace Domain\Pokemon;
 
 use Domain\Model\Pokemon;
-
 use Infrastructure\Symfony\Repository\Pokemons;
 
 class Encounter
 {
     private Pokemons $pokemons;
 
-    private const LOCATION_PLAINS       = 'plains';
-    private const LOCATION_CITY         = 'city';
-    private const LOCATION_BEACH        = 'beach';
-    private const LOCATION_MOUNTAINS    = 'montains';
-    private const LOCATION_VOLCANO      = 'volcano';
+    private const LOCATION_PLAINS    = 'plains';
+    private const LOCATION_CITY      = 'city';
+    private const LOCATION_BEACH     = 'beach';
+    private const LOCATION_MOUNTAINS = 'montains';
+    private const LOCATION_VOLCANO   = 'volcano';
 
-    private const SHINY_RATIO           = 0.1;
+    private const SHINY_RATIO = 0.1;
 
     public function __construct(Pokemons $pokemons)
     {
@@ -25,8 +24,8 @@ class Encounter
 
     public function getPokemon(string $location): ?Pokemon
     {
-        $pokemons = [];
-        $allowedTypes = $this->getTypesByLocation($location);
+        $pokemons        = [];
+        $allowedTypes    = $this->getTypesByLocation($location);
         $allowedPokemons = $this->pokemons->findByTypes($allowedTypes);
 
         foreach ($allowedPokemons as $pokemon) {
@@ -48,7 +47,7 @@ class Encounter
             case self::LOCATION_BEACH:
                 return [
                     Pokemon::TYPE_WATER,
-                    Pokemon::TYPE_FLYING
+                    Pokemon::TYPE_FLYING,
                 ];
             case self::LOCATION_CITY:
                 return [
@@ -58,7 +57,7 @@ class Encounter
                     Pokemon::TYPE_FIGHTING,
                     Pokemon::TYPE_NORMAL,
                     Pokemon::TYPE_ELECTRIC,
-                    Pokemon::TYPE_FLYING
+                    Pokemon::TYPE_FLYING,
                 ];
             case self::LOCATION_MOUNTAINS:
                 return [
@@ -73,7 +72,7 @@ class Encounter
                     Pokemon::TYPE_FIRE,
                     Pokemon::TYPE_GROUND,
                     Pokemon::TYPE_ROCK,
-                    Pokemon::TYPE_FAIRY
+                    Pokemon::TYPE_FAIRY,
                 ];
             default:
                 return [
@@ -81,7 +80,7 @@ class Encounter
                     Pokemon::TYPE_GRASS,
                     Pokemon::TYPE_POISON,
                     Pokemon::TYPE_FLYING,
-                    Pokemon::TYPE_NORMAL
+                    Pokemon::TYPE_NORMAL,
                 ];
         }
     }

@@ -14,7 +14,8 @@ class Pokemons extends ServiceEntityRepository
     }
 
     /**
-     * param array<string> $allowedTypes
+     * param array<string> $allowedTypes.
+     *
      * @return Pokemon[]
      */
     public function findByTypes(array $allowedTypes): array
@@ -26,5 +27,4 @@ class Pokemons extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
 }

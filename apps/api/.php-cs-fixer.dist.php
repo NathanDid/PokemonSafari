@@ -8,6 +8,18 @@ $finder = (new PhpCsFixer\Finder())
 return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
+        'align_multiline_comment' => ['comment_type' => 'all_multiline'],
+        'array_indentation' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'backtick_to_shell_exec' => true,
+        'braces' => true,
+        'indentation_type' => true,
+        'method_chaining_indentation' => true,
+        'binary_operator_spaces' => [
+            'operators' => [
+                '=' => 'align'
+            ],
+        ],
     ])
     ->setFinder($finder)
 ;
