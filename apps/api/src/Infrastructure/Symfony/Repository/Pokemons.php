@@ -14,13 +14,13 @@ class Pokemons extends ServiceEntityRepository
     }
 
     /**
-     * param array<string> $allowedTypes.
+     * @param array<string> $allowedTypes.
      *
-     * @return Pokemon[]
+     * @return array<Pokemon>
      */
     public function findByTypes(array $allowedTypes): array
     {
-        return $this->createQueryBuilder('p')
+        return (array) $this->createQueryBuilder('p')
             ->where('p.types IN (:allowedTypes)')
             ->setParameter('allowedTypes', $allowedTypes)
             ->getQuery()

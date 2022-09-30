@@ -19,6 +19,8 @@ class FetchPokemonCommand extends Command
 {
     private EntityManagerInterface $manager;
 
+    private const POKEMON_LIMIT = 151;
+
     public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
@@ -30,30 +32,93 @@ class FetchPokemonCommand extends Command
     {
         $api = new PokeApi();
 
-        for ($i = 1; $i < 152; ++$i) {
-            $res = json_decode($api->pokemon($i));
+        for ($i = 1; $i <= self::POKEMON_LIMIT; ++$i) {
+            /**
+             * @var array{
+             *  name: string,
+             *  types: array<mixed>,
+             *  sprites: array{
+             *  other: array{
+             *      home: array{
+             *          front_default: string,
+             *          front_shiny: string
+             *      }
+             *  },
+             *  front_default: string,
+             *  front_shiny: string
+             * },
+             * base_experience: int
+             * } $res
+             */
+            $res = json_decode($api->pokemon($i), true);
+
+            $types = $this->getPokemonTypes($res['types']);
+            $images = $this->getPokemonImages($res['sprites']);
 
             $pokemon = new Pokemon(
                 $i,
-                $res->name,
-                array_map(function ($type) {
-                    return $type->type->name;
-                }, $res->types),
-                [
-                    'main' => $res->sprites->other->home->front_default,
-                    'shiny' => $res->sprites->other->home->front_shiny,
-                    'sprite' => $res->sprites->front_default,
-                    'sprite_shiny' => $res->sprites->front_shiny,
-                ],
-                $res->base_experience
+                $res['name'],
+                $types,
+                $images,
+                $res['base_experience']
             );
 
             $this->manager->persist($pokemon);
+
             usleep(200);
         }
 
         $this->manager->flush();
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * @param array<mixed> $types
+     * @return array<string> $types
+     */
+    private function getPokemonTypes(array $types)
+    {
+        return array_map(function ($type) {
+            /** @var array{
+             * type: array{
+             * name: string
+             * }
+             * } $type */
+            return $type['type']['name'];
+        }, $types);
+    }
+
+    /**
+     * @param array{
+     * other: array{home: array{front_default: string, front_shiny: string}},
+     * front_default: string,
+     * front_shiny: string
+     * } $sprites
+     *
+     * @return array{
+     * main: string,
+     * shiny: string,
+     * sprite: string,
+     * sprite_shiny: string
+     * }
+     */
+    private function getPokemonImages(array $sprites): array
+    {
+        /** @var string $main */
+        $main = $sprites['other']['home']['front_default'];
+        /** @var string $shiny */
+        $shiny = $sprites['other']['home']['front_shiny'];
+        /** @var string $sprite */
+        $sprite = $sprites['front_default'];
+        /** @var string $spriteShiny */
+        $spriteShiny = $sprites['front_shiny'];
+
+        return [
+            'main'  => $main,
+            'shiny' => $shiny,
+            'sprite' => $sprite,
+            'sprite_shiny' => $spriteShiny,
+        ];
     }
 }

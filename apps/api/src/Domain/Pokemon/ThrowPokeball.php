@@ -18,8 +18,14 @@ class ThrowPokeball
         int $playerScore
     ): bool {
         $pokemon      = $this->pokemons->findOneById($pokemonId);
+
+        if ($pokemon === null) {
+            throw new \Exception('pokemon not found');
+        }
+
         $playerLevel  = Level::getPlayerLevelFromScore($playerScore);
         $pokemonLevel = Level::getPokemonLevelFromScore($pokemon);
+
         switch ($pokemonLevel) {
             case 0:
                 return $this->nearlyImpossibleToFailed();
@@ -137,6 +143,8 @@ class ThrowPokeball
                         return $this->veryEasyToFailed();
                 }
         }
+
+        return false;
     }
 
     private function nearlyImpossibleToFailed(): bool

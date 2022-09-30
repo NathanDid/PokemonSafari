@@ -15,14 +15,12 @@ class Encounter
     private const LOCATION_MOUNTAINS = 'montains';
     private const LOCATION_VOLCANO   = 'volcano';
 
-    private const SHINY_RATIO = 0.1;
-
     public function __construct(Pokemons $pokemons)
     {
         $this->pokemons = $pokemons;
     }
 
-    public function getPokemon(string $location): ?Pokemon
+    public function getPokemon(string $location): Pokemon
     {
         $pokemons        = [];
         $allowedTypes    = $this->getTypesByLocation($location);
@@ -41,6 +39,9 @@ class Encounter
         return $pokemon;
     }
 
+    /**
+     * @return array<string>
+     */
     private function getTypesByLocation(string $location): array
     {
         switch ($location) {
@@ -74,6 +75,7 @@ class Encounter
                     Pokemon::TYPE_ROCK,
                     Pokemon::TYPE_FAIRY,
                 ];
+            case self::LOCATION_PLAINS:
             default:
                 return [
                     Pokemon::TYPE_BUG,

@@ -17,9 +17,9 @@ class Level
                 return 3;
             case $score < 1000:
                 return 4;
-            case $score >= 1000:
-                return 5;
         }
+
+        return 5;
     }
 
     public static function getPokemonLevelFromScore(Pokemon $pokemon): int
@@ -43,8 +43,8 @@ class Level
                 return 7;
             case $score <= 275:
                 return 8;
-            case $score > 275:
-                return 9;
         }
+
+        return 9;
     }
 }

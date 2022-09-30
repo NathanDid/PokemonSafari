@@ -10,9 +10,8 @@ use Overblog\GraphQLBundle\Annotation\Type;
 #[Type]
 class Pokeball
 {
-    public function __construct(bool $isSuccess)
+    public function __construct(private bool $isSuccess)
     {
-        $this->isSuccess = $isSuccess;
     }
 
     #[Field]
