@@ -19,7 +19,7 @@ class PokemonController extends AbstractController
 
     public function show(Request $request): Response
     {
-        $pokemon = $this->encounter->getPokemon('volcano');
+        $pokemon = $this->encounter->getPokemon($request->query->get('location'));
         $content = json_encode([
             'name' => $pokemon->getName(),
             'image' => $pokemon->getMainImage(),

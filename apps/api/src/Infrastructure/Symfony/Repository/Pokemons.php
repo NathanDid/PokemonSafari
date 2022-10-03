@@ -20,9 +20,21 @@ class Pokemons extends ServiceEntityRepository
      */
     public function findByTypes(array $allowedTypes): array
     {
-        return (array) $this->createQueryBuilder('p')
-            ->where('p.types IN (:allowedTypes)')
-            ->setParameter('allowedTypes', $allowedTypes)
+        $db = $this->createQueryBuilder('p');
+        $i = 0;
+
+        foreach ($allowedTypes as $allowedType) {
+            $i ++;
+            $db
+                ->orWhere(sprintf('p.types LIKE :allowedType%d', $i))
+                ->setParameter(
+                    sprintf('allowedType%d', $i),
+                    '%' . $allowedType . '%'
+                )
+            ;
+        }
+
+        return (array) $db
             ->getQuery()
             ->getResult()
         ;

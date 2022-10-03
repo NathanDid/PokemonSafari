@@ -12,7 +12,7 @@ class Encounter
     private const LOCATION_PLAINS    = 'plains';
     private const LOCATION_CITY      = 'city';
     private const LOCATION_BEACH     = 'beach';
-    private const LOCATION_MOUNTAINS = 'montains';
+    private const LOCATION_MOUNTAINS = 'mountains';
     private const LOCATION_VOLCANO   = 'volcano';
 
     public function __construct(Pokemons $pokemons)
@@ -64,9 +64,10 @@ class Encounter
                 return [
                     Pokemon::TYPE_ROCK,
                     Pokemon::TYPE_ICE,
+                    Pokemon::TYPE_FIGHTING,
                     Pokemon::TYPE_GROUND,
-                    Pokemon::TYPE_NORMAL,
-                    Pokemon::TYPE_FAIRY,
+                    Pokemon::TYPE_DRAGON,
+                    Pokemon::TYPE_FAIRY
                 ];
             case self::LOCATION_VOLCANO:
                 return [
