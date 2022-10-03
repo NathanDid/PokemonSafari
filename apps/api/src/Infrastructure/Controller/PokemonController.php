@@ -2,15 +2,24 @@
 
 namespace Infrastructure\Controller;
 
+use Domain\Model\Environment;
+use Domain\Model\PokemonType;
+use Domain\Model\PokemonTypeEnum;
 use Symfony\Component\HttpFoundation\Response;
 use PokePHP\PokeApi;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PokemonController
 {
     public function show(Request $request): Response
     {
         $location = $request->query->get('location');
+
+        if(!$environment = Environment::tryFrom($location)) {
+            
+            throw new NotFoundHttpException(sprintf('Cannot find environment with name %s', $location));
+        }
 
         while (true) {
             $pokemon = $this->getPokemon();
@@ -19,29 +28,10 @@ class PokemonController
                 return $type->type->name;
             }, $pokemon->types);
 
-            switch ($location) {
-                case 'plains':
-                    $allowedTypes = ['grass', 'normal', 'flying', 'poison', 'ground'];
-                    break;
-                case 'city':
-                    $allowedTypes = ['electric', 'normal', 'flying', 'poison', 'psychic', 'ghost', 'fighting'];
-                    break;
-                case 'beach':
-                    $allowedTypes = ['water', 'flying'];
-                    break;
-                case 'mountains':
-                    $allowedTypes = ['normal', 'ground', 'rock', 'ice', 'dragon'];
-                    break;
-                case 'volcano':
-                    $allowedTypes = ['fire', 'rock', 'fighting', 'dragon'];
-                    break;
-                default:
-                    $allowedTypes = ['normal'];
-                    break;
-            }
-
+            $allowedTypes = Environment::getTypes($environment);
+            
             foreach ($types as $type) {
-                if (in_array($type, $allowedTypes)) {
+                if (in_array(PokemonType::tryFrom($type), $allowedTypes)) {
                     return new Response(json_encode([
                         'name'      => $pokemon->name,
                         'image'     => $pokemon->sprites->other->home->front_default,
