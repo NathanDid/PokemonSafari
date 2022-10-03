@@ -39,17 +39,17 @@ const Action = () => {
                     disabled={false} pokeballs={pokeballs}
                 />
                 <ActionButton
-                    label="Caillou"
+                    label="Throw rock"
                     disabled={true}
                 />
                 <BuyButton
-                    label="Acheter pokéball"
+                    label="Buy Pokeball"
                     disabled={false}
                     price={20}
                     onClick={handleBuyPokeball}
                 />
                 <NextButton
-                    label="Fuite"
+                    label="Fly u fools"
                     disabled={false}
                     onClick={handleNextPokemon}
                 />
