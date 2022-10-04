@@ -1,28 +1,34 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { currentPokemonSelector, isPokeballThrownSelector, locationSelector, rateSelector, scoreSelector, throwPokeball } from "../modules/game";
+import { currentPokemonSelector, isPokeballThrownSelector, scoreSelector, throwPokeball, throwPokeballFailed, throwPokeballSuccess } from "../modules/game";
 import ActionButton from "./ActionButton"
+import { usePokeballLazyQuery } from "./pokeball.hooks";
 
 type Props = {
     label: string,
     disabled: boolean,
-    onClick: (score: number, rate: number) => void,
-    pokeballs?: number
+    pokeballs?: number;
+    refetchPokemon: () => void
 }
 
-const PokeballButton = ({ disabled, label, pokeballs }: Props) => {
+const PokeballButton = ({ disabled, label, pokeballs, refetchPokemon }: Props) => {
+    const dispatch = useDispatch()
     const hasAvailablePokeball = pokeballs > 0;
     const score = useSelector(scoreSelector)
-    const rate = useSelector(rateSelector)
-    const location = useSelector(locationSelector)
     const currentPokemon = useSelector(currentPokemonSelector)
     const isPokeballThrown = useSelector(isPokeballThrownSelector)
 
-    const dispatch = useDispatch()
+    const handleClick = async() => {
+        dispatch(throwPokeball())
+        const {data} = await fetchPokeball({variables: {pokemonId: currentPokemon.id, playerScore: score}})
 
-    const handleClick = () => {
-        dispatch(throwPokeball({score, rate, location}))
+        if (data.pokeball.success) {
+            dispatch(throwPokeballSuccess())
+            refetchPokemon()
+        } else dispatch(throwPokeballFailed())
     }
+
+    const [fetchPokeball] = usePokeballLazyQuery({fetchPolicy: 'no-cache'});
 
     return(
         <ActionButton

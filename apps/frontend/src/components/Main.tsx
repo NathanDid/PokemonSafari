@@ -2,21 +2,17 @@ import Action from './Action'
 import Encounter from './Encounter'
 import LocationList from './LocationList'
 import { useSelector } from "react-redux"
-import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import {
-  fetchPokemon,
-  loadingPokemonSelector,
-  isLoadingPokemon,
-  ownedPokemonsSelector,
-  scoreSelector,
-  shakePokemonSelector,
-  locationSelector
+  locationSelector,
+  setCurrentPokemon
 } from '../modules/game'
 import styled from 'styled-components';
 import Inventory from './Inventory'
 import State from './State'
 import Audio from './Audio'
+import { usePokemonQuery } from './pokemon.hooks'
+import { useEffect } from 'react'
 
 const Div = styled.div`
     .game {
@@ -73,28 +69,28 @@ const Div = styled.div`
 `;
 
 const Main = () => {
-  const dispatch = useDispatch()
-  const currentPokemon = useSelector(loadingPokemonSelector)
-  const loadingPokemon = useSelector(isLoadingPokemon)
-  const ownedPokemons = useSelector(ownedPokemonsSelector)
-  const score = useSelector(scoreSelector)
-  const shakePokemon = useSelector(shakePokemonSelector)
   const location = useSelector(locationSelector)
 
+  const dispatch = useDispatch()
+  const {
+      data, loading, error, refetch
+  } = usePokemonQuery({variables: {location: location}})
+
   useEffect(() => {
-    dispatch(fetchPokemon({location}))
-  }, [])
+    if (!loading) dispatch(setCurrentPokemon(data.pokemon))
+  }, [data])
 
   return (
     <Div>
         <div className={location + ' game'}>
             <div className='content'>
-                <Encounter currentPokemon={currentPokemon} isLoading={loadingPokemon} shakePokemon={shakePokemon}/>
-                <LocationList/>
+                <Encounter/>
+                <LocationList refetchPokemon={refetch}/>
             </div>
-            <Action />
-            <Inventory ownedPokemons={ownedPokemons}/>
-            <State score={score}/>
+
+            <Action refetchPokemon={refetch}/>
+            <Inventory/>
+            <State/>
             <Audio/>
         </div>
     </Div>

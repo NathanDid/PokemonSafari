@@ -1,0 +1,5 @@
+query Pokeball($pokemonId: Int!, $playerScore: Int!) {
+  pokeball(pokemonId: $pokemonId, playerScore: $playerScore) {
+    success
+  }
+}

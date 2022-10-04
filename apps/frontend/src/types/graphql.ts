@@ -12,26 +12,35 @@ export interface Scalars {
   Float: number;
 }
 
-export interface Identifiable {
-  readonly id: Scalars['ID'];
+export interface Pokeball {
+  readonly __typename?: 'Pokeball';
+  readonly success: Scalars['Boolean'];
+}
+
+export interface Pokemon {
+  readonly __typename?: 'Pokemon';
+  readonly id: Scalars['Int'];
+  readonly image: Scalars['String'];
+  readonly name: Scalars['String'];
+  readonly rate: Scalars['Int'];
+  readonly score: Scalars['Int'];
+  readonly sprite: Scalars['String'];
+  readonly timestamp: Scalars['Int'];
 }
 
 export interface Query {
   readonly __typename?: 'Query';
-  readonly todoLists: ReadonlyArray<TodoList>;
+  readonly pokeball: Pokeball;
+  readonly pokemon: Pokemon;
 }
 
-export interface Todo extends Identifiable {
-  readonly __typename?: 'Todo';
-  readonly id: Scalars['ID'];
-  readonly isDone: Scalars['Boolean'];
-  readonly task: Scalars['String'];
+
+export interface QueryPokeballArgs {
+  playerScore: Scalars['Int'];
+  pokemonId: Scalars['Int'];
 }
 
-export interface TodoList extends Identifiable {
-  readonly __typename?: 'TodoList';
-  readonly id: Scalars['ID'];
-  readonly length: Scalars['Int'];
-  readonly title: Scalars['String'];
-  readonly todos: ReadonlyArray<Todo>;
+
+export interface QueryPokemonArgs {
+  location: Scalars['String'];
 }

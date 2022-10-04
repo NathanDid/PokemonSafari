@@ -1,12 +1,11 @@
-import { PokemonType } from "modules/game"
+import { ownedPokemonsSelector } from "../modules/game"
 import OwnedPokemon from "./OwnedPokemon"
 import styled from 'styled-components';
+import { useSelector } from "react-redux";
 
-type Props = {
-    ownedPokemons: PokemonType[],
-}
+const Inventory = () => {
+    const ownedPokemons = useSelector(ownedPokemonsSelector)
 
-const Inventory = ({ ownedPokemons }: Props) => {
     return(
         <Div>
             {ownedPokemons.map((pokemon, key) =>

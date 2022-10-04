@@ -4,6 +4,7 @@ import { RootState } from "configureStore";
 export const pokeballPrice = 500
 
 export type PokemonType = {
+    id: number;
     name: string;
     image: string;
     score: number;
@@ -41,21 +42,16 @@ export const gameSlice = createSlice({
     name: 'game',
     initialState,
     reducers: {
-        throwPokeball: (state, action) => ({
+        throwPokeball: (state) => ({
             ...state,
             pokeballs: state.pokeballs - 1,
             isPokeballThrown: true,
             shakePokemon: false
         }),
-        fetchPokemon: (state, action) => ({
-            ...state,
-            loadingPokemon: true,
-            shakePokemon: false
-        }),
         setCurrentPokemon: (state, action) => ({
             ...state,
-            currentPokemon: action.payload,
-            loadingPokemon: false
+            shakePokemon: false,
+            currentPokemon: action.payload
         }),
         buyPokeball: (state) => ({
             ...state,
@@ -78,6 +74,8 @@ export const gameSlice = createSlice({
         setLocation: (state, action) => ({
             ...state,
             location: action.payload,
+            shakePokemon: false,
+            currentPokemon: null
         }),
         toggleSound: (state) => ({
             ...state,
@@ -90,12 +88,6 @@ export type ThrowPokeballPayloadType = {
     payload: {
       score: number;
       rate: number;
-      location: string;
-    }
-}
-
-export type FetchPokemonPayloadType = {
-    payload: {
       location: string;
     }
 }
@@ -114,7 +106,6 @@ export const audioOnSelector = (state: RootState) => state.game.audioOn
 
 export const {
     throwPokeball,
-    fetchPokemon,
     setCurrentPokemon,
     buyPokeball,
     throwPokeballFailed,

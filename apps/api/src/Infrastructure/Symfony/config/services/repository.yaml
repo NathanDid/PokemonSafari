@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    Infrastructure\Symfony\Repository\Pokemons:
+        class: 'Infrastructure\Symfony\Repository\Pokemons'

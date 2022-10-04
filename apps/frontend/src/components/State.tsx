@@ -1,13 +1,13 @@
+import { scoreSelector } from "../modules/game";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-type Props = {
-    score: number
-}
+const State = () => {
+    const score = useSelector(scoreSelector)
 
-const State = (props: Props) => {
     return (
         <Div>
-            <b className="score">Score : {props.score}</b>
+            <b className="score">Score : {score}</b>
         </Div>
     )
 }

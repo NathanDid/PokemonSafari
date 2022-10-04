@@ -1,3 +1,6 @@
+imports:
+  - { resource: 'services/' }
+
 parameters:
 
 services:
@@ -8,3 +11,9 @@ services:
     Application\GraphQL\Resolver\:
         public: true
         resource: '%kernel.project_dir%/src/Application/GraphQL/Resolver'
+
+    Infrastructure\Symfony\Command\:
+        resource: '../Command/*'
+
+    Infrastructure\Controller\:
+        resource: '../../Controller/*'
